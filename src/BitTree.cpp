@@ -53,12 +53,40 @@ void treehigh(BSTnode*p , int& high)
 	}
 }
 
+void findleaf(BSTnode * root , int& count)
+{
+	if(root == 0)
+		return;
+	else if(root->lchild == NULL && root->rchild ==NULL)
+	{
+		count++;
+		cout << root->data << "\t";
+	}
+	else
+	{
+		findleaf(root->lchild , count);
+		findleaf(root->rchild , count);
+	}
+}
+
+void inOrder(BSTnode* root)
+{
+	if(root != NULL)
+	{
+		inOrder(root -> lchild);
+		cout << "," << root->data  ;
+		inOrder(root -> rchild);
+	}
+}
+
 int main(int argc , char** argv)
 {
 	cout <<	"This is the first experiment" << endl;
 
+	/*
+	1.2.生成随机序列
+	*/
 	srand((unsigned)time(NULL));	//初始化时间种子
-
 	for(int i = 0 ; i<DataCount ; i++ ){
 		int n = rand()%MaxData;	//保证随机数在0~100
 		v.push_back(n);
@@ -69,13 +97,16 @@ int main(int argc , char** argv)
 			}
 		}	
 	}	//生成不重复随机数
-
 	cout << "The generated random list is :" << endl;
 	for(vector<int>::iterator it = v.begin() ; it != v.end() ; it++ )
 	{
 		cout << *it << "\t" ;
 	}	//输出序列
 
+
+	/*
+	3.创建二叉树
+	*/
 	BSTnode* root = (BSTnode*)malloc(sizeof(BSTnode));
 	root -> data	= v.front();
 	root -> lchild = NULL;
@@ -85,9 +116,29 @@ int main(int argc , char** argv)
 		BSTinsert(root,*it); 
 	}	//构建排序二叉树
 	
+	/*
+	4.计算二叉树深度
+	*/
 	int high = 0;
 	treehigh(root , high);
 	cout << endl <<"The depth of the tree :\t"<<high << endl;
+
+	/*
+	5.计数并且输出树叶
+	*/
+	int count = 0;
+	cout << "leafs:" << endl;
+	findleaf(root , count);
+	cout << endl << "The number of leaf :\t" << count <<endl;
+
+	/*
+	6.中序遍历
+	*/
+	cout << "The inOrder:" <<endl;
+	inOrder(root);
+	cout << endl;
+	
+	
 
 	return 0;
 }
