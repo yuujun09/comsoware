@@ -1,0 +1,3 @@
+/home/tianbot/jwf_ws/src/computer_software/build/CMakeFiles/rebuild_cache.dir
+/home/tianbot/jwf_ws/src/computer_software/build/CMakeFiles/BitTree.dir
+/home/tianbot/jwf_ws/src/computer_software/build/CMakeFiles/edit_cache.dir
